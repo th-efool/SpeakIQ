@@ -76,6 +76,12 @@
     hsl(var(--background));
 }
 
+/* Logo breathing animation */
+@keyframes logo-breathe {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
 /* AI signature glow for evaluation panels */
 @keyframes ai-pulse {
   0%, 100% { box-shadow: 0 0 0 0 hsl(245 50% 56% / 0); }
