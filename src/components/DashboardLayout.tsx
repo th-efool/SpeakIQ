@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import { PageTransition } from "@/components/PageTransition";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
             </div>
           </header>
           <main className="flex-1 overflow-auto p-6">
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
         </div>
       </div>
