@@ -4,51 +4,51 @@
 
 @layer base {
   :root {
-    --background: 240 5% 98%;
-    --foreground: 240 10% 8%;
+    --background: 240 4% 96.5%;
+    --foreground: 240 12% 10%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 8%;
+    --card: 240 3% 99%;
+    --card-foreground: 240 12% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 8%;
+    --popover: 240 3% 99%;
+    --popover-foreground: 240 12% 10%;
 
-    --primary: 245 50% 56%;
+    --primary: 245 48% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 95%;
-    --secondary-foreground: 240 10% 8%;
+    --secondary: 240 5% 93%;
+    --secondary-foreground: 240 10% 12%;
 
-    --muted: 240 6% 95%;
-    --muted-foreground: 240 5% 50%;
+    --muted: 240 5% 93%;
+    --muted-foreground: 240 4% 46%;
 
-    --accent: 240 6% 93%;
-    --accent-foreground: 240 10% 8%;
+    --accent: 240 5% 91%;
+    --accent-foreground: 240 10% 12%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 60% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 245 50% 56%;
+    --border: 240 5% 89%;
+    --input: 240 5% 89%;
+    --ring: 245 48% 52%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 240 6% 99%;
-    --sidebar-foreground: 240 5% 50%;
-    --sidebar-primary: 245 50% 56%;
+    --sidebar-background: 240 4% 97.5%;
+    --sidebar-foreground: 240 4% 46%;
+    --sidebar-primary: 245 48% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 245 40% 96%;
-    --sidebar-accent-foreground: 245 50% 40%;
-    --sidebar-border: 240 6% 92%;
-    --sidebar-ring: 245 50% 56%;
+    --sidebar-accent: 245 30% 95%;
+    --sidebar-accent-foreground: 245 40% 38%;
+    --sidebar-border: 240 5% 91%;
+    --sidebar-ring: 245 48% 52%;
 
-    --success: 152 60% 42%;
+    --success: 152 45% 40%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 90% 50%;
+    --warning: 38 70% 48%;
     --warning-foreground: 0 0% 100%;
 
-    --glow-primary: 245 60% 64%;
+    --glow-primary: 245 50% 60%;
   }
 }
 
