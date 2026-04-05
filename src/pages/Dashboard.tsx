@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout title="Overview" subtitle="Performance summary">
-      <div className="max-w-6xl space-y-6">
+      <div className="max-w-6xl space-y-8">
         {/* KPI row */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard label="Total Sessions" value={String(sessions.length)} change="+3 this week" changeType="positive" />
@@ -20,23 +20,31 @@ export default function Dashboard() {
         </div>
 
         {/* Chart */}
-        <div className="rounded-lg border border-border bg-card p-5">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4">Performance Trend</p>
+        <div className="card-interactive rounded-lg border border-border bg-card p-6">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-5">Performance Trend</p>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,13%,91%)" />
-                <XAxis dataKey="date" tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} axisLine={false} tickLine={false} />
-                <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} axisLine={false} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(240,6%,90%)" />
+                <XAxis dataKey="date" tick={{ fontSize: 11, fill: "hsl(240,5%,50%)" }} axisLine={false} tickLine={false} />
+                <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: "hsl(240,5%,50%)" }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "hsl(0,0%,100%)",
-                    border: "1px solid hsl(220,13%,91%)",
-                    borderRadius: "6px",
+                    border: "1px solid hsl(240,6%,90%)",
+                    borderRadius: "8px",
                     fontSize: "12px",
+                    boxShadow: "0 4px 12px -2px hsl(245 50% 56% / 0.1)",
                   }}
                 />
-                <Line type="monotone" dataKey="score" stroke="hsl(225,60%,52%)" strokeWidth={2} dot={{ r: 3, fill: "hsl(225,60%,52%)" }} />
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="hsl(245,50%,56%)"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: "hsl(245,50%,56%)", strokeWidth: 0 }}
+                  activeDot={{ r: 5, fill: "hsl(245,50%,56%)", strokeWidth: 2, stroke: "hsl(0,0%,100%)" }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -44,7 +52,7 @@ export default function Dashboard() {
 
         {/* Recent sessions */}
         <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">Recent Sessions</p>
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Recent Sessions</p>
           <div className="space-y-2">
             {sessions.slice(0, 5).map((s) => (
               <SessionCard key={s.id} session={s} />

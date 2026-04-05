@@ -22,18 +22,18 @@ export function SessionCard({ session }: { session: Session }) {
   return (
     <button
       onClick={() => navigate(`/sessions/${session.id}`)}
-      className="w-full text-left rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/30 hover:bg-accent/50"
+      className="card-interactive w-full text-left rounded-lg border border-border bg-card p-4 hover:border-primary/30"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium text-card-foreground truncate">{session.topic}</p>
           <div className="mt-1.5 flex items-center gap-3">
-            <span className="text-xs text-muted-foreground">{session.date}</span>
-            <span className="text-xs text-muted-foreground">{session.duration}</span>
+            <span className="text-[11px] text-muted-foreground">{session.date}</span>
+            <span className="text-[11px] text-muted-foreground">{session.duration}</span>
             {modeBadge(session.mode)}
           </div>
         </div>
-        <span className={cn("text-lg font-semibold tabular-nums", scoreColor(session.score))}>
+        <span className={cn("text-xl font-bold tabular-nums", scoreColor(session.score))}>
           {session.score}
         </span>
       </div>

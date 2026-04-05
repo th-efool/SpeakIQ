@@ -26,17 +26,16 @@ const accountItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const location = useLocation();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border">
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="px-4 py-5">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-[0_0_12px_-2px_hsl(var(--primary)/0.3)]">
             <Headphones className="h-4 w-4 text-primary-foreground" />
           </div>
           {!collapsed && (
-            <span className="text-sm font-semibold tracking-tight text-foreground">
+            <span className="text-sm font-bold tracking-tight text-foreground">
               SpeakXR
             </span>
           )}
@@ -44,7 +43,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
             Platform
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -55,8 +54,8 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       end={item.url === "/"}
-                      className="text-muted-foreground hover:bg-accent hover:text-foreground"
-                      activeClassName="bg-accent text-foreground font-medium"
+                      className="text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}
@@ -68,7 +67,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
             Account
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -78,8 +77,8 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className="text-muted-foreground hover:bg-accent hover:text-foreground"
-                      activeClassName="bg-accent text-foreground font-medium"
+                      className="text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}

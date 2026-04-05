@@ -10,15 +10,15 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ children, title, subtitle }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="min-h-screen flex w-full bg-atmosphere">
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-14 flex items-center gap-4 border-b border-border px-6 shrink-0">
-            <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
+          <header className="h-14 flex items-center gap-4 border-b border-border/80 px-6 shrink-0 backdrop-blur-sm bg-background/80">
+            <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
             <div className="flex items-baseline gap-3">
-              <h1 className="text-sm font-semibold text-foreground">{title}</h1>
+              <h1 className="text-sm font-semibold text-foreground tracking-tight">{title}</h1>
               {subtitle && (
-                <span className="text-xs text-muted-foreground">{subtitle}</span>
+                <span className="text-[11px] text-muted-foreground">{subtitle}</span>
               )}
             </div>
           </header>
