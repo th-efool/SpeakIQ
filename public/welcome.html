@@ -1,0 +1,1013 @@
+<html lang="en" class="scroll-smooth relative"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakXR | Parallel Intelligence System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        /* Analytical Background Grids */
+        .bg-sys-grid {
+            background-image: 
+                linear-gradient(to right, rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .bg-micro-grid {
+            background-image: 
+                linear-gradient(to right, rgba(17, 17, 17, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 17, 17, 0.06) 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+
+        /* Continuous Motion System */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        @keyframes sweep {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+        @keyframes drift {
+            0% { transform: translateX(-5%); }
+            50% { transform: translateX(5%); }
+            100% { transform: translateX(-5%); }
+        }
+        @keyframes pulse-calm {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        @keyframes data-stream {
+            0% { opacity: 0.3; height: 10%; }
+            50% { opacity: 0.8; height: 90%; }
+            100% { opacity: 0.3; height: 30%; }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            20% { opacity: 0.4; }
+            40% { opacity: 0.9; }
+            60% { opacity: 0.2; }
+            80% { opacity: 0.8; }
+        }
+
+        .animate-scan { animation: scanline 12s linear infinite; }
+        .animate-sweep { animation: sweep 6s ease-in-out infinite; }
+        .animate-drift { animation: drift 20s ease-in-out infinite; }
+        .pulse-calm { animation: pulse-calm 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .pulse-calm-fast { animation: pulse-calm 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .flicker-once { animation: flicker 0.4s ease-out forwards; }
+        
+        .data-bar-1 { animation: data-stream 2s ease-in-out infinite; }
+        .data-bar-2 { animation: data-stream 3.5s ease-in-out infinite 0.5s; }
+        .data-bar-3 { animation: data-stream 2.8s ease-in-out infinite 1s; }
+
+        /* Hide scrollbar for seamless look */
+        ::-webkit-scrollbar { width: 0px; }
+        
+        /* Extended Bleed Dividers */
+        .bleed-divider::before {
+            content: '';
+            position: absolute;
+            left: -50vw;
+            right: -50vw;
+            top: 0;
+            height: 1px;
+            background: rgba(17,17,17,0.1);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAFA] text-[#111111] font-sans antialiased selection:bg-gray-200 selection:text-black relative overflow-x-hidden">
+
+    <!-- Persistent Global Background Layer -->
+    <div class="fixed inset-0 bg-sys-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-20">
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-[#111111] to-transparent animate-scan absolute top-0"></div>
+        <div class="w-px h-full bg-gradient-to-b from-transparent via-[#2563EB] to-transparent animate-sweep absolute left-1/4 opacity-10"></div>
+    </div>
+
+    <!-- Global Header -->
+    <header class="fixed top-0 w-full bg-[#FAFAFA]/80 backdrop-blur-xl border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-calm-fast"></div>
+                    <span class="font-medium tracking-tight text-sm uppercase">SpeakXR</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-3 border-l border-gray-200 pl-4 text-xs font-mono text-gray-400">
+                    <span class="flex items-center space-x-1"><iconify-icon icon="solar:cpu-linear"></iconify-icon><span>NODE_04</span></span>
+                    <span id="sys-latency" class="flex items-center space-x-1 text-emerald-600 transition-colors duration-300"><iconify-icon icon="solar:wifi-router-linear"></iconify-icon><span>LATENCY: 12ms</span></span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6 text-sm">
+                <div class="hidden md:flex flex-col items-end mr-4">
+                    <span class="font-mono text-xs text-[#111111] uppercase leading-none mb-0.5">SYS.STATUS</span>
+                    <span class="font-mono text-xs text-emerald-600 uppercase leading-none">PARALLEL_ACTIVE</span>
+                </div>
+                <button class="text-gray-500 hover:text-[#111111] transition-colors font-medium text-xs uppercase tracking-wide">Docs_</button>
+                <button class="bg-[#111111] text-white px-5 py-2 rounded-md font-medium text-xs uppercase tracking-wide hover:bg-gray-800 transition-colors shadow-sm relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                    <span class="relative z-10 flex items-center space-x-2">
+                        <iconify-icon icon="solar:power-button-linear"></iconify-icon>
+                        <span>Initialize</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="pt-36 pb-24 px-6 max-w-7xl mx-auto min-h-screen flex flex-col justify-center relative z-10">
+        <div class="max-w-3xl mb-16 relative">
+            <div class="flex items-center space-x-3 mb-6">
+                <span class="font-mono text-xs bg-gray-100 text-gray-500 px-2 py-1 border border-gray-200 rounded uppercase tracking-widest flex items-center space-x-2 transition-all duration-300" id="session-badge">
+                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full pulse-calm"></span>
+                    <span>Session_Active</span>
+                </span>
+                <span class="font-mono text-xs text-gray-400">IDX // 894.22.A</span>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-medium tracking-tight leading-tight mb-6 relative">
+                Train how you speak<br>when you are being judged.
+                <div class="absolute -left-6 top-2 bottom-2 w-1 bg-gradient-to-b from-gray-300 to-transparent animate-pulse"></div>
+            </h1>
+            <p class="text-lg text-gray-600 mb-10 max-w-xl leading-relaxed font-light">
+                Simulate high-stakes stage and interview environments in XR. The system reads your baseline, triggers real-time audience reactions, and forces you to adapt.
+            </p>
+            <div class="flex items-center space-x-4">
+                <button class="bg-[#111111] text-white px-6 py-3 rounded-md font-medium text-sm flex items-center space-x-2 hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200">
+                    <span>Enter Simulation</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5"></iconify-icon>
+                </button>
+                <div class="flex flex-col text-xs font-mono text-gray-400 border-l border-gray-200 pl-4">
+                    <span>REQ: XR_HEADSET</span>
+                    <span class="text-gray-500">SYS_READY</span>
+                </div>
+            </div>
+
+            <!-- "What Happens" Micro-block -->
+            <div class="mt-10 space-y-2.5 border-l border-gray-200 pl-5 relative max-w-lg">
+                <div class="absolute -left-px top-0 w-px h-1/3 bg-gray-400"></div>
+                <div class="font-mono text-xs text-gray-500 flex items-start space-x-4">
+                    <span class="text-[#111111] w-14 flex-shrink-0">SEQ_01</span>
+                    <span>User enters XR stage or panel interview environment.</span>
+                </div>
+                <div class="font-mono text-xs text-gray-500 flex items-start space-x-4">
+                    <span class="text-[#111111] w-14 flex-shrink-0">SEQ_02</span>
+                    <span>System triggers real-time audience behaviors and AI interruptions.</span>
+                </div>
+                <div class="font-mono text-xs text-gray-500 flex items-start space-x-4">
+                    <span class="text-red-500 w-14 flex-shrink-0 pulse-calm">SEQ_03</span>
+                    <span>Environmental pressure scales dynamically if hesitation is detected.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Preview Panel (High-Density Parallel Structure) -->
+        <div class="border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col relative group">
+            
+            <!-- Timeline Header -->
+            <div class="bg-[#FAFAFA] border-b border-gray-200 p-3 flex items-center justify-between relative z-20">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 bg-white border border-gray-200 px-2 py-1 rounded shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-500 pulse-calm-fast"></span>
+                        <span class="font-mono text-xs text-gray-600">LIVE EXTRACTION</span>
+                    </div>
+                    <span class="font-mono text-xs text-gray-400 border-l border-gray-200 pl-4">SESSION_094 // PR_ENV</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="ticker-text" class="font-mono text-xs text-gray-400 hidden md:inline-block transition-colors duration-300">BUFFER: SYNCHRONIZED</span>
+                    <div class="font-mono text-xs text-[#111111] bg-gray-100 px-3 py-1 rounded border border-gray-200 flex items-center space-x-2">
+                        <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
+                        <span id="live-time">T+ [00:14:22.4]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parallel Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-100 relative bg-white">
+                
+                <!-- Continuous background scanline inside panel -->
+                <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                    <div class="w-full h-1 bg-gradient-to-r from-transparent via-[#2563EB]/10 to-transparent animate-scan"></div>
+                </div>
+                
+                <!-- Clarity -->
+                <div id="col-clarity" class="p-5 relative overflow-hidden bg-gradient-to-b from-transparent to-[#2563EB]/5 hover:bg-[#FAFAFA] transition-colors z-10">
+                    <div id="overlay-clarity" class="absolute inset-0 bg-white/60 backdrop-blur-[1px] z-20 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                        <div class="font-mono text-xs bg-white border border-[#2563EB]/30 text-[#2563EB] px-2 py-1 rounded shadow-sm flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 bg-[#2563EB] rounded-full pulse-calm-fast"></span><span>PROCESSING...</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center space-x-2 text-[#2563EB]">
+                            <iconify-icon icon="solar:text-square-linear" stroke-width="1.5"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Clarity</span>
+                        </div>
+                        <div class="text-right">
+                            <div id="conf-clarity" class="font-mono text-xs text-gray-400 transition-all duration-300">CONF. 98%</div>
+                            <div class="font-mono text-xs text-red-500 flex items-center justify-end"><iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon> 2.4</div>
+                        </div>
+                    </div>
+                    <div class="flex items-end space-x-2 mb-4">
+                        <span id="score-clarity" class="font-mono text-4xl font-extralight text-[#111111] leading-none transition-all duration-300">62</span>
+                        <div class="flex flex-col mb-0.5">
+                            <span class="font-mono text-xs text-gray-400 uppercase leading-none border-b border-gray-200 pb-0.5 mb-0.5">Idx</span>
+                            <span class="font-mono text-xs text-gray-500 leading-none">Lvl. 3</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-6 min-h-[48px] leading-relaxed font-light">Syntax fragmentation detected upon high-pressure interruption.</p>
+                    <div class="border-l border-[#2563EB]/40 pl-3 relative bg-white p-3 shadow-sm border-t border-r border-b border-gray-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-mono text-xs text-[#2563EB] bg-[#2563EB]/10 px-1.5 rounded">T-REF: 00:14:20.1</div>
+                            <iconify-icon icon="solar:soundwave-linear" class="text-gray-300"></iconify-icon>
+                        </div>
+                        <p class="text-xs font-mono text-gray-700">"We should... if you look at..."</p>
+                    </div>
+                </div>
+
+                <!-- Composure -->
+                <div id="col-composure" class="p-5 relative overflow-hidden bg-gradient-to-b from-transparent to-[#7C3AED]/5 hover:bg-[#FAFAFA] transition-colors z-10">
+                    <div id="overlay-composure" class="absolute inset-0 bg-white/60 backdrop-blur-[1px] z-20 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                        <div class="font-mono text-xs bg-white border border-[#7C3AED]/30 text-[#7C3AED] px-2 py-1 rounded shadow-sm flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 bg-[#7C3AED] rounded-full pulse-calm-fast"></span><span>PROCESSING...</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center space-x-2 text-[#7C3AED]">
+                            <iconify-icon icon="solar:heart-pulse-linear" stroke-width="1.5"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Composure</span>
+                        </div>
+                        <div class="text-right">
+                            <div id="conf-composure" class="font-mono text-xs text-gray-400 transition-all duration-300">CONF. 92%</div>
+                            <div class="font-mono text-xs text-emerald-500 flex items-center justify-end"><iconify-icon icon="solar:minus-linear"></iconify-icon> 0.0</div>
+                        </div>
+                    </div>
+                    <div class="flex items-end space-x-2 mb-4">
+                        <span id="score-composure" class="font-mono text-4xl font-extralight text-[#111111] leading-none transition-all duration-300">88</span>
+                        <div class="flex flex-col mb-0.5">
+                            <span class="font-mono text-xs text-gray-400 uppercase leading-none border-b border-gray-200 pb-0.5 mb-0.5">Idx</span>
+                            <span class="font-mono text-xs text-gray-500 leading-none">Lvl. 4</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-6 min-h-[48px] leading-relaxed font-light">Physical baseline maintained despite elevated cognitive load.</p>
+                    <div class="border-l border-[#7C3AED]/40 pl-3 relative bg-white p-3 shadow-sm border-t border-r border-b border-gray-100 flex flex-col justify-center h-[74px]">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-mono text-xs text-gray-400">BIO_VARIANCE</div>
+                            <span class="font-mono text-xs text-[#7C3AED]">NOMINAL</span>
+                        </div>
+                        <div class="flex items-end space-x-1 h-6 w-full overflow-hidden opacity-70">
+                            <div class="w-1.5 bg-[#7C3AED]/30 data-bar-1"></div>
+                            <div class="w-1.5 bg-[#7C3AED]/50 data-bar-2"></div>
+                            <div class="w-1.5 bg-[#7C3AED] h-[80%]"></div>
+                            <div class="w-1.5 bg-[#7C3AED]/40 data-bar-3"></div>
+                            <div class="w-1.5 bg-[#7C3AED]/20 data-bar-1"></div>
+                            <div class="w-1.5 bg-[#7C3AED]/60 data-bar-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persuasion -->
+                <div id="col-persuasion" class="p-5 relative overflow-hidden bg-gradient-to-b from-transparent to-[#EA580C]/5 hover:bg-[#FAFAFA] transition-colors z-10">
+                    <div id="overlay-persuasion" class="absolute inset-0 bg-white/60 backdrop-blur-[1px] z-20 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                        <div class="font-mono text-xs bg-white border border-[#EA580C]/30 text-[#EA580C] px-2 py-1 rounded shadow-sm flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 bg-[#EA580C] rounded-full pulse-calm-fast"></span><span>PROCESSING...</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center space-x-2 text-[#EA580C]">
+                            <iconify-icon icon="solar:target-linear" stroke-width="1.5"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Persuasion</span>
+                        </div>
+                        <div class="text-right">
+                            <div id="conf-persuasion" class="font-mono text-xs text-gray-400 transition-all duration-300">CONF. 87%</div>
+                            <div class="font-mono text-xs text-emerald-500 flex items-center justify-end"><iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon> 4.1</div>
+                        </div>
+                    </div>
+                    <div class="flex items-end space-x-2 mb-4">
+                        <span id="score-persuasion" class="font-mono text-4xl font-extralight text-[#111111] leading-none transition-all duration-300">94</span>
+                        <div class="flex flex-col mb-0.5">
+                            <span class="font-mono text-xs text-[#EA580C] uppercase leading-none border-b border-[#EA580C]/30 pb-0.5 mb-0.5">Surge</span>
+                            <span class="font-mono text-xs text-gray-500 leading-none">Lvl. 5</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-6 min-h-[48px] leading-relaxed font-light">Volume and pitch actively adjusted to retain authority.</p>
+                    <div class="border-l border-[#EA580C]/40 pl-3 relative bg-white p-3 shadow-sm border-t border-r border-b border-gray-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-mono text-xs text-[#EA580C] bg-[#EA580C]/10 px-1.5 rounded">T-REF: 00:14:22.0</div>
+                            <iconify-icon icon="solar:sort-from-bottom-to-top-linear" class="text-gray-300"></iconify-icon>
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">Compensatory acoustic shift identified.</p>
+                    </div>
+                </div>
+
+                <!-- Structure -->
+                <div id="col-structure" class="p-5 relative overflow-hidden bg-gradient-to-b from-transparent to-[#059669]/5 hover:bg-[#FAFAFA] transition-colors z-10">
+                    <div id="overlay-structure" class="absolute inset-0 bg-white/60 backdrop-blur-[1px] z-20 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                        <div class="font-mono text-xs bg-white border border-[#059669]/30 text-[#059669] px-2 py-1 rounded shadow-sm flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 bg-[#059669] rounded-full pulse-calm-fast"></span><span>PROCESSING...</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center space-x-2 text-[#059669]">
+                            <iconify-icon icon="solar:layers-linear" stroke-width="1.5"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Structure</span>
+                        </div>
+                        <div class="text-right">
+                            <div id="conf-structure" class="font-mono text-xs text-gray-400 transition-all duration-300">CONF. 95%</div>
+                            <div class="font-mono text-xs text-red-500 flex items-center justify-end"><iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon> 8.7</div>
+                        </div>
+                    </div>
+                    <div class="flex items-end space-x-2 mb-4">
+                        <span id="score-structure" class="font-mono text-4xl font-extralight text-[#111111] leading-none transition-all duration-300">41</span>
+                        <div class="flex flex-col mb-0.5">
+                            <span class="font-mono text-xs text-gray-400 uppercase leading-none border-b border-gray-200 pb-0.5 mb-0.5">Idx</span>
+                            <span class="font-mono text-xs text-[#059669] leading-none pulse-calm">Lvl. 2</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-6 min-h-[48px] leading-relaxed font-light">Core argument systematically abandoned post-interruption.</p>
+                    <div class="border-l border-[#059669]/40 pl-3 relative bg-white p-3 shadow-sm border-t border-r border-b border-gray-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-mono text-xs text-[#059669] bg-[#059669]/10 px-1.5 rounded">T-REF: 00:14:24.5</div>
+                            <iconify-icon icon="solar:link-broken-linear" class="text-gray-300"></iconify-icon>
+                        </div>
+                        <p class="text-xs font-mono text-gray-700 line-through text-gray-400">Point 2 transition sequence.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Metadata Bar -->
+            <div class="bg-gray-50 border-t border-gray-200 px-4 py-2 flex justify-between items-center text-xs font-mono text-gray-400 z-20">
+                <div class="flex space-x-4">
+                    <span id="sys-load" class="transition-all duration-300">SYS_LOAD: 24%</span>
+                    <span id="sys-vectors" class="transition-all duration-300">VECTORS: 4,092</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                    <span class="w-1 h-1 bg-[#111111] rounded-full"></span>
+                    <span class="w-1 h-1 bg-gray-400 rounded-full pulse-calm"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: THE PROBLEM (HOOK) -->
+    <section class="py-32 bg-white relative z-10 border-t border-gray-200 bleed-divider">
+        <div class="max-w-7xl mx-auto px-6 relative">
+            <div class="mb-12">
+                <span class="font-mono text-xs text-gray-400 uppercase tracking-widest flex items-center space-x-2">
+                    <span class="w-1.5 h-1.5 border border-gray-400 bg-white"></span>
+                    <span>Phase 00 // Baseline Degradation</span>
+                </span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl font-medium tracking-tight mb-6 leading-snug">
+                        You don't fail because of poor preparation.
+                    </h2>
+                    <p class="text-lg text-gray-500 mb-8 leading-relaxed font-light">
+                        You fail because your clarity degrades the moment real social pressure is applied. We map exactly where your execution fractures when all eyes are on you.
+                    </p>
+                    <div class="flex flex-col space-y-3 font-mono text-xs text-gray-400 border-l border-gray-200 pl-4">
+                        <div class="flex justify-between max-w-xs"><span>ISOLATION_INDEX</span><span class="text-[#111111]">NOMINAL</span></div>
+                        <div class="flex justify-between max-w-xs"><span>PRESSURE_STATE</span><span class="text-red-500 pulse-calm-fast">ACTIVE</span></div>
+                    </div>
+                </div>
+                
+                <!-- Density Degradation Visual -->
+                <div class="relative h-72 border border-gray-200 bg-[#FAFAFA] rounded-md p-8 flex flex-col justify-center space-y-8 overflow-hidden group">
+                    <div class="absolute inset-0 bg-micro-grid opacity-50 z-0"></div>
+                    
+                    <!-- Scanning line -->
+                    <div class="absolute top-0 bottom-0 left-1/3 w-px bg-blue-500/30 z-10 animate-sweep pointer-events-none"></div>
+
+                    <!-- Row 1 -->
+                    <div class="relative z-10 flex items-center space-x-4 opacity-100 transition-opacity">
+                        <div class="font-mono text-xs text-gray-400 w-12">T-00</div>
+                        <div class="flex-1 h-1.5 bg-[#111111] rounded-sm relative">
+                            <div class="absolute -top-4 right-0 font-mono text-xs text-[#111111]">100%</div>
+                        </div>
+                        <div class="font-mono text-xs text-gray-600 w-32 uppercase tracking-wide">Structured Thought</div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="relative z-10 flex items-center space-x-4 opacity-80">
+                        <div class="font-mono text-xs text-gray-400 w-12">T-14</div>
+                        <div class="flex-1 flex space-x-1">
+                            <div class="h-1.5 bg-gray-500 rounded-sm w-3/4"></div>
+                            <div class="h-1.5 bg-gray-500 rounded-sm w-1/4 opacity-50"></div>
+                        </div>
+                        <div class="font-mono text-xs text-gray-500 w-32 uppercase tracking-wide relative">
+                            Cognitive Load
+                            <span class="absolute -left-6 top-1/2 -translate-y-1/2 text-xs text-red-400 bg-red-50 px-1 rounded">-14%</span>
+                        </div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="relative z-10 flex items-center space-x-4 opacity-90">
+                        <div class="font-mono text-xs text-red-500 w-12 pulse-calm">T-22</div>
+                        <div class="flex-1 flex space-x-1 relative">
+                            <div class="absolute -inset-y-3 left-[20%] w-[40%] bg-red-500/5 border border-red-500/20 rounded z-0"></div>
+                            <div class="h-1.5 bg-red-500 rounded-sm w-[15%] z-10"></div>
+                            <div class="h-1.5 bg-gray-300 rounded-sm w-[25%] z-10 pulse-calm-fast"></div>
+                            <div class="h-1.5 bg-red-500 rounded-sm w-[10%] z-10"></div>
+                            <div class="h-1.5 bg-gray-300 rounded-sm w-[35%] z-10"></div>
+                            <div class="h-1.5 bg-gray-200 rounded-sm w-[15%] z-10"></div>
+                        </div>
+                        <div class="font-mono text-xs text-red-500 w-32 uppercase tracking-wide relative">
+                            Pressure State
+                            <span class="absolute -left-6 top-1/2 -translate-y-1/2 text-xs text-red-500 bg-red-100 px-1 rounded">FRAG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: XR PRESSURE SYSTEM -->
+    <section class="py-32 bg-[#FAFAFA] relative z-10 border-t border-gray-200 bleed-divider">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 flex flex-col md:flex-row md:justify-between md:items-end">
+                <div class="max-w-2xl">
+                    <span class="font-mono text-xs text-gray-400 uppercase tracking-widest flex items-center space-x-2 mb-4">
+                        <span class="w-1.5 h-1.5 border border-gray-400 bg-white"></span>
+                        <span>Phase 01 // Induction</span>
+                    </span>
+                    <h2 class="text-3xl font-medium tracking-tight mb-4">Controlled environmental stress.</h2>
+                    <p class="text-gray-500 text-lg font-light">Pressure is computed, not random. XR instances induce stress through highly precise variables.</p>
+                </div>
+                <div class="mt-6 md:mt-0 font-mono text-xs text-gray-400 border border-gray-200 bg-white px-3 py-2 rounded shadow-sm text-right sys-node transition-colors duration-300">
+                    <div class="mb-1 text-gray-500">ENV_CTRL_ACTIVE</div>
+                    <div class="text-emerald-500 flex items-center justify-end space-x-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>3 ACTIVE MODULES</span></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Module 1 -->
+                <div class="bg-white border border-gray-200 p-6 rounded-md hover:border-gray-300 transition-colors group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gray-100 group-hover:bg-[#111111] transition-colors"></div>
+                    <div class="flex justify-between items-start mb-10">
+                        <iconify-icon icon="solar:eye-linear" class="text-gray-400 text-xl group-hover:text-gray-600 transition-colors" stroke-width="1.5"></iconify-icon>
+                        <div class="flex flex-col items-end space-y-2">
+                            <div class="w-8 h-4 bg-[#111111] rounded-full relative">
+                                <div class="w-3 h-3 bg-white rounded-full absolute right-0.5 top-0.5 pulse-calm"></div>
+                            </div>
+                            <span class="font-mono text-xs text-gray-400">TRK_LOCK</span>
+                        </div>
+                    </div>
+                    <div class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1 border-b border-gray-100 pb-1">Mod_01</div>
+                    <h3 class="font-medium text-sm mb-2 text-[#111111]">Audience Gaze Shifts</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light">Simulates disinterest or intense scrutiny via synchronized avatar eye-tracking algorithms.</p>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="bg-white border border-gray-200 p-6 rounded-md hover:border-gray-300 transition-colors group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gray-100 group-hover:bg-blue-500 transition-colors"></div>
+                    <div class="flex justify-between items-start mb-10">
+                        <iconify-icon icon="solar:volume-cross-linear" class="text-gray-400 text-xl group-hover:text-blue-500 transition-colors" stroke-width="1.5"></iconify-icon>
+                        <div class="flex flex-col items-end">
+                            <div class="font-mono text-xs text-gray-400 border border-gray-200 px-2 py-0.5 rounded bg-gray-50 mb-1">AMP: HIGH</div>
+                            <span class="font-mono text-xs text-blue-500 pulse-calm">ISO_ACTV</span>
+                        </div>
+                    </div>
+                    <div class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1 border-b border-gray-100 pb-1">Mod_02</div>
+                    <h3 class="font-medium text-sm mb-2 text-[#111111]">Silence Amplification</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-6 font-light">Acoustic isolation protocols that artificially extend pauses to induce social panic.</p>
+                    
+                    <div class="h-1 w-full bg-gray-100 rounded-full relative">
+                        <div class="absolute left-0 top-0 h-full w-[85%] bg-blue-500 rounded-full pulse-calm-fast"></div>
+                        <div class="absolute left-[85%] top-1/2 -translate-y-1/2 w-2 h-2 bg-white border border-blue-500 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="bg-white border border-gray-200 p-6 rounded-md hover:border-red-200 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-red-50/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gray-100 group-hover:bg-red-500 transition-colors"></div>
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-red-500/5 rounded-bl-full pointer-events-none pulse-calm"></div>
+                    <div class="flex justify-between items-start mb-10 relative z-10">
+                        <iconify-icon icon="solar:chat-round-line-linear" class="text-red-500 text-xl pulse-calm" stroke-width="1.5"></iconify-icon>
+                        <div class="flex flex-col items-end">
+                            <div class="font-mono text-xs text-red-500 bg-red-50 px-2 py-0.5 border border-red-100 rounded mb-1">INJECTING</div>
+                            <span class="font-mono text-xs text-red-400">VAR_HIGH</span>
+                        </div>
+                    </div>
+                    <div class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-1 border-b border-gray-100 pb-1 relative z-10">Mod_03</div>
+                    <h3 class="font-medium text-sm mb-2 text-[#111111] relative z-10">Algorithmic Interruptions</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light relative z-10">Injects verbal challenges precisely at moments of highest cognitive load based on variance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: DATA CAPTURE -->
+    <section class="py-32 bg-white relative z-10 border-t border-gray-200 bleed-divider">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+            
+            <div class="md:col-span-4 relative sys-node transition-colors duration-300 rounded-md p-2 -ml-2">
+                <span class="font-mono text-xs text-gray-400 uppercase tracking-widest flex items-center space-x-2 mb-4">
+                    <span class="w-1.5 h-1.5 border border-gray-400 bg-white"></span>
+                    <span>Phase 02 // Extraction</span>
+                </span>
+                <h2 class="text-3xl font-medium tracking-tight mb-8">Real-time signal extraction.</h2>
+                
+                <div class="space-y-1 font-mono text-xs text-[#111111] border border-gray-200 bg-[#FAFAFA] p-4 rounded-md shadow-sm">
+                    <div class="flex justify-between items-end py-2 border-b border-gray-200 hover:bg-gray-100 transition-colors px-1 -mx-1 rounded">
+                        <div class="flex flex-col">
+                            <span class="text-gray-400 text-xs uppercase">Metric</span>
+                            <span>Speech Rate</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-gray-400">184 wpm</span>
+                            <span class="text-red-500 bg-red-50 px-1 rounded flex items-center"><iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon> 12%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-end py-2 border-b border-gray-200 hover:bg-gray-100 transition-colors px-1 -mx-1 rounded">
+                        <div class="flex flex-col">
+                            <span class="text-gray-400 text-xs uppercase">Metric</span>
+                            <span>Response Latency</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-gray-400">1.2s</span>
+                            <span class="text-emerald-500 bg-emerald-50 px-1 rounded flex items-center"><iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon> 0.1s</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-end py-2 border-b border-gray-200 relative overflow-hidden px-1 -mx-1 rounded">
+                        <div class="absolute inset-0 bg-red-50/30 z-0 pulse-calm"></div>
+                        <div class="flex flex-col relative z-10">
+                            <span class="text-red-400 text-xs uppercase">Anomaly</span>
+                            <span>Filler Density</span>
+                        </div>
+                        <div class="flex items-center space-x-3 relative z-10">
+                            <span class="text-[#111111] font-medium">8.4%</span>
+                            <span class="text-red-500 bg-red-100 px-1 rounded flex items-center flicker-once">ERR</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-end py-2 px-1 -mx-1 hover:bg-gray-100 transition-colors rounded">
+                        <div class="flex flex-col">
+                            <span class="text-gray-400 text-xs uppercase">State</span>
+                            <span>Pitch Variance</span>
+                        </div>
+                        <span class="text-blue-500 font-medium tracking-wide">NOMINAL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highly Detailed Waveform Visual -->
+            <div class="md:col-span-8 relative">
+                <div class="relative w-full h-56 border border-gray-200 bg-white rounded-md overflow-hidden shadow-sm flex flex-col group">
+                    <!-- Faint Background Grid -->
+                    <div class="absolute inset-0 bg-micro-grid opacity-20 pointer-events-none z-0"></div>
+                    
+                    <!-- Top Metadata -->
+                    <div class="h-8 border-b border-gray-100 bg-gray-50 flex justify-between items-center px-4 relative z-10">
+                        <div class="flex items-center space-x-3 font-mono text-xs text-gray-500">
+                            <span class="flex items-center space-x-1"><iconify-icon icon="solar:record-circle-linear" class="text-red-500 pulse-calm-fast"></iconify-icon><span>REC</span></span>
+                            <span class="border-l border-gray-300 pl-3">CH_01: AUDIO_CORE</span>
+                        </div>
+                        <span class="font-mono text-xs text-gray-400 ticker-dbfs">DBFS: -12.4</span>
+                    </div>
+
+                    <!-- Waveform Area -->
+                    <div class="flex-1 relative w-full flex items-end px-4 space-x-[2px] pb-6 z-10">
+                        <!-- Left chunk -->
+                        <div class="w-1 bg-gray-200 h-[20%] hover:bg-gray-400 transition-colors"></div><div class="w-1 bg-gray-200 h-[30%]"></div><div class="w-1 bg-gray-200 h-[50%]"></div><div class="w-1 bg-gray-300 h-[40%]"></div><div class="w-1 bg-gray-300 h-[60%]"></div><div class="w-1 bg-gray-300 h-[80%]"></div><div class="w-1 bg-gray-300 h-[90%]"></div><div class="w-1 bg-gray-400 h-[100%]"></div><div class="w-1 bg-gray-300 h-[70%]"></div><div class="w-1 bg-gray-300 h-[50%]"></div><div class="w-1 bg-gray-200 h-[30%]"></div><div class="w-1 bg-gray-200 h-[20%]"></div><div class="w-1 bg-gray-200 h-[10%]"></div><div class="w-1 bg-gray-200 h-[10%]"></div><div class="w-1 bg-gray-200 h-[10%]"></div>
+                        
+                        <!-- Stress Event Region -->
+                        <div class="absolute bottom-6 top-2 left-[20%] w-[25%] bg-red-50/50 border-x border-red-200 flex flex-col justify-between z-0 pulse-calm">
+                            <span class="text-xs font-mono text-red-500 bg-white px-1 self-start border border-red-100 ml-1 mt-1 rounded shadow-sm relative z-20">EVENT: SILENCE_AMP</span>
+                        </div>
+                        
+                        <!-- Inside Event -->
+                        <div class="w-1 bg-red-300 h-[5%] relative z-10"></div><div class="w-1 bg-red-200 h-[5%] z-10"></div><div class="w-1 bg-red-200 h-[2%] z-10"></div><div class="w-1 bg-red-100 h-[2%] z-10"></div><div class="w-1 bg-red-100 h-[2%] z-10"></div><div class="w-1 bg-red-100 h-[2%] z-10"></div><div class="w-1 bg-red-200 h-[5%] z-10"></div><div class="w-1 bg-red-300 h-[10%] z-10"></div><div class="w-1 bg-red-400 h-[30%] z-10"></div><div class="w-1 bg-red-500 h-[80%] relative z-10"><div class="absolute -top-5 -left-4 font-mono text-xs text-red-500 bg-white border border-red-200 px-1 rounded shadow-sm">SPIKE</div></div><div class="w-1 bg-red-400 h-[90%] z-10"></div><div class="w-1 bg-red-300 h-[60%] z-10"></div><div class="w-1 bg-red-200 h-[40%] z-10"></div><div class="w-1 bg-red-200 h-[20%] z-10"></div>
+                        
+                        <!-- Right chunk -->
+                        <div class="w-1 bg-gray-300 h-[30%] ml-1"></div><div class="w-1 bg-gray-300 h-[40%]"></div><div class="w-1 bg-gray-300 h-[60%]"></div><div class="w-1 bg-gray-400 h-[80%]"></div><div class="w-1 bg-gray-400 h-[90%]"></div><div class="w-1 bg-gray-300 h-[70%]"></div><div class="w-1 bg-gray-300 h-[40%]"></div><div class="w-1 bg-gray-200 h-[20%]"></div><div class="w-1 bg-gray-200 h-[10%]"></div><div class="w-1 bg-gray-200 h-[30%]"></div>
+                        
+                        <!-- Playhead Line -->
+                        <div class="absolute top-0 bottom-6 left-[35%] w-[1.5px] bg-[#2563EB] z-20 group-hover:left-[40%] transition-all duration-1000 ease-in-out">
+                            <div class="w-2.5 h-2.5 border-2 border-[#2563EB] bg-white rounded-full absolute -top-1 -left-[4.5px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Ruler Bottom -->
+                    <div class="absolute bottom-0 w-full h-6 border-t border-gray-200 bg-gray-50 flex justify-between items-center px-4 font-mono text-xs text-gray-400 z-10">
+                        <!-- Ticks -->
+                        <div class="absolute top-0 left-0 w-full flex justify-between px-4">
+                            <div class="w-px h-1.5 bg-gray-300"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1.5 bg-gray-300"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1.5 bg-gray-300"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1.5 bg-gray-300"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1 bg-gray-200"></div><div class="w-px h-1.5 bg-gray-300"></div>
+                        </div>
+                        <span class="relative pt-1.5">00:14:15</span>
+                        <span class="relative pt-1.5 text-blue-500 font-medium">00:14:22</span>
+                        <span class="relative pt-1.5">00:14:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: CONFLICT (INSIGHT LAYER) -->
+    <section class="py-32 bg-[#FAFAFA] relative z-10 border-t border-gray-200 bleed-divider">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16 relative">
+            <span class="font-mono text-xs text-gray-400 uppercase tracking-widest inline-flex items-center space-x-2 mb-4">
+                <span class="w-1.5 h-1.5 border border-gray-400 bg-white"></span>
+                <span>Phase 03 // Insight Synthesis</span>
+            </span>
+            <h2 class="text-3xl font-medium tracking-tight mb-4">System Conflict Detected</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto text-lg font-light">Parallel analysis reveals subconscious trade-offs. The human processing unit rarely optimizes all vectors simultaneously under induced stress.</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto border border-gray-200 rounded-md bg-white p-12 relative overflow-hidden shadow-sm">
+            <!-- Background connecting web -->
+            <div class="absolute inset-0 bg-micro-grid opacity-30 z-0"></div>
+            <svg class="absolute inset-0 w-full h-full text-gray-200 z-0 overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <path class="svg-connector transition-all duration-300" d="M 20 50 Q 50 10 80 50" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 2"></path>
+                <path class="svg-connector transition-all duration-300" d="M 20 50 Q 50 90 80 50" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 2"></path>
+                <!-- Animated signal flow -->
+                <circle r="1" fill="#2563EB" class="opacity-60">
+                    <animateMotion dur="2.8s" repeatCount="indefinite" path="M 20 50 Q 50 10 80 50"></animateMotion>
+                </circle>
+                <circle r="1" fill="#EA580C" class="opacity-60">
+                    <animateMotion dur="3.4s" repeatCount="indefinite" path="M 20 50 Q 50 90 80 50"></animateMotion>
+                </circle>
+            </svg>
+
+            <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
+                
+                <!-- Node A: Downward trend -->
+                <div class="w-full md:w-1/3 bg-[#FAFAFA] border border-gray-100 p-6 rounded-md shadow-sm relative group sys-node transition-all duration-300">
+                    <div class="absolute -top-3 left-4 font-mono text-xs bg-white border border-gray-200 text-gray-400 px-2 rounded">NODE_A // LOSS</div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flex items-center space-x-2 text-[#2563EB] mb-4">
+                            <iconify-icon icon="solar:arrow-right-down-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Clarity Fracture</span>
+                        </div>
+                        <div class="font-mono text-4xl font-extralight text-gray-400 mb-2 transition-transform group-hover:scale-105">-24%</div>
+                        <p class="text-xs text-gray-500 leading-relaxed font-mono font-light">Structural breakdown in multi-part sentence construction.</p>
+                    </div>
+                </div>
+
+                <!-- Central Insight -->
+                <div class="w-full md:w-1/3 text-center px-8 py-8 md:py-0 relative">
+                    <!-- Scanning connecting lines -->
+                    <div class="hidden md:block absolute top-1/2 -left-8 w-8 h-px bg-[#111111]/20"></div>
+                    <div class="hidden md:block absolute top-1/2 -right-8 w-8 h-px bg-[#111111]/20"></div>
+                    
+                    <div class="inline-block font-mono text-xs text-red-500 bg-red-50 border border-red-100 px-2 py-0.5 rounded mb-4 pulse-calm-fast">CORRELATION IDENTIFIED</div>
+                    <p class="font-medium text-lg leading-snug text-[#111111]">
+                        You instinctively trade precision for engagement under pressure.
+                    </p>
+                </div>
+
+                <!-- Node B: Upward trend -->
+                <div class="w-full md:w-1/3 bg-white border border-gray-200 p-6 rounded-md shadow-sm relative group shadow-orange-500/5 sys-node transition-all duration-300">
+                    <div class="absolute -top-3 left-4 font-mono text-xs bg-white border border-gray-200 text-orange-500 px-2 rounded">NODE_B // COMP</div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flex items-center space-x-2 text-[#EA580C] mb-4">
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+                            <span class="text-xs uppercase tracking-widest font-medium">Persuasion Spike</span>
+                        </div>
+                        <div class="font-mono text-4xl font-extralight text-[#111111] mb-2 transition-transform group-hover:scale-105">+18%</div>
+                        <p class="text-xs text-gray-500 leading-relaxed font-mono font-light">Unconscious volume amplification to maintain control.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CROSS-EXAMINATION -->
+    <section class="py-32 bg-white relative z-10 border-t border-gray-200 bleed-divider">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="mb-12 text-center">
+                <span class="font-mono text-xs text-gray-400 uppercase tracking-widest inline-flex items-center space-x-2">
+                    <span class="w-1.5 h-1.5 border border-gray-400 bg-white"></span>
+                    <span>Phase 04 // Interrogation</span>
+                </span>
+            </div>
+
+            <div class="border border-gray-200 rounded-md shadow-sm overflow-hidden bg-white flex flex-col">
+                <!-- Terminal Top Bar -->
+                <div class="bg-gray-50 border-b border-gray-200 p-3 flex items-center justify-between z-20 relative">
+                    <div class="flex items-center space-x-3">
+                        <iconify-icon icon="solar:terminal-outline-linear" class="text-gray-400" stroke-width="1.5"></iconify-icon>
+                        <span class="font-mono text-xs text-gray-600 uppercase tracking-widest font-medium">System Interrogation Log</span>
+                    </div>
+                    <div class="flex space-x-1.5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-gray-200 border border-gray-300 pulse-calm"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-gray-200 border border-gray-300"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-gray-200 border border-gray-300"></div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row relative">
+                    <div class="absolute inset-0 bg-sys-grid opacity-10 pointer-events-none z-0"></div>
+                    <!-- Main Log Container (Dynamic Layer on top) -->
+                    <div class="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-100 relative overflow-hidden flex flex-col justify-start min-h-[300px]">
+                        
+                        <div id="telemetry-log-container" class="w-full relative z-10 flex flex-col space-y-4">
+                            <!-- Baseline Existing Content (will be pushed down natively) -->
+                            <div class="relative z-10 flex space-x-4 mb-4 transition-all duration-700">
+                                <div class="w-8 h-8 rounded-md bg-[#111111] flex items-center justify-center flex-shrink-0 text-white font-mono text-xs shadow-sm">SYS</div>
+                                <div class="flex-1">
+                                    <div class="font-mono text-xs text-gray-400 mb-2 flex justify-between">
+                                        <span>T+ 00:18:42.11</span>
+                                        <span class="text-blue-500 border border-blue-200 bg-blue-50 px-1 rounded uppercase">ANALYSIS_NODE_3</span>
+                                    </div>
+                                    <p class="text-base font-medium tracking-tight text-[#111111] mb-4 bg-gray-50/80 backdrop-blur p-3 border border-gray-100 rounded shadow-sm">
+                                        "You avoided committing to a clear stance regarding the timeline — why?"
+                                    </p>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="bg-white border border-gray-200 text-gray-500 font-mono text-xs px-2 py-0.5 rounded shadow-sm flex items-center space-x-1">
+                                            <iconify-icon icon="solar:link-linear"></iconify-icon>
+                                            <span>Triggered by: STRUCTURE ANOMALY</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Evidence Trace (Static Anchor) -->
+                        <div class="pl-12 border-l border-gray-200 ml-4 space-y-4 relative z-10 mt-8 pt-4">
+                            <div class="absolute -left-1 top-6 w-2 h-2 bg-white border border-gray-300 rounded-full"></div>
+                            
+                            <div class="bg-white border border-gray-200 p-4 rounded-md text-xs text-gray-600 shadow-sm relative overflow-hidden group">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-gray-200 group-hover:bg-[#111111] transition-colors"></div>
+                                <div class="font-mono text-xs text-gray-400 mb-2 uppercase tracking-widest">Behavioral Evidence Trace</div>
+                                <span class="font-light leading-relaxed">Use of passive voice increased by <span class="font-mono text-[#111111] bg-gray-100 px-1 rounded font-medium">40%</span>. Eye contact tracking maps reveal visual dispersion towards peripheral avatars 1.2s immediately preceding verbal response.</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between bg-blue-50/50 border border-blue-100 p-3 rounded-md cursor-pointer hover:bg-blue-50 transition-colors">
+                                <div class="flex items-center space-x-2 text-[#2563EB] text-xs font-medium">
+                                    <iconify-icon icon="solar:play-circle-linear" stroke-width="1.5"></iconify-icon>
+                                    <span>Review XR Playback Segment</span>
+                                </div>
+                                <span class="font-mono text-xs text-blue-400">00:00:14</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Metadata Sidebar -->
+                    <div class="p-6 md:w-1/3 bg-[#FAFAFA]/80 backdrop-blur-sm font-mono text-xs z-10">
+                        <h4 class="text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-2">Trace Data</h4>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex justify-between hover:text-[#111111] transition-colors">
+                                <span>CONFIDENCE</span>
+                                <span class="text-[#111111]">98.2%</span>
+                            </li>
+                            <li class="flex justify-between hover:text-[#111111] transition-colors">
+                                <span>OCULAR_DISP</span>
+                                <span class="text-red-500">+2.4 RAD</span>
+                            </li>
+                            <li class="flex justify-between hover:text-[#111111] transition-colors">
+                                <span>VOICE_TENS</span>
+                                <span class="text-[#111111]">ELEVATED</span>
+                            </li>
+                            <li class="flex justify-between hover:text-[#111111] transition-colors">
+                                <span>COGNITIVE_LD</span>
+                                <span class="text-[#111111]">LVL 4</span>
+                            </li>
+                        </ul>
+                        <div class="mt-8 pt-4 border-t border-gray-200">
+                            <div class="text-gray-400 mb-2">SYNTHESIS GRAPH</div>
+                            <!-- Mini abstract chart -->
+                            <div class="flex items-end h-12 space-x-1 opacity-50 relative group">
+                                <div class="absolute inset-0 bg-gradient-to-t from-transparent to-[#FAFAFA] opacity-50 group-hover:opacity-0 transition-opacity"></div>
+                                <div class="w-full bg-gray-300 h-[20%] transition-all duration-300 hover:bg-gray-400 hover:h-[30%]"></div>
+                                <div class="w-full bg-gray-300 h-[30%] transition-all duration-300 hover:bg-gray-400 hover:h-[40%]"></div>
+                                <div class="w-full bg-gray-300 h-[50%] transition-all duration-300 hover:bg-gray-400 hover:h-[60%]"></div>
+                                <div class="w-full bg-[#111111] h-[90%] relative pulse-calm-fast"><div class="absolute -top-4 left-1/2 -translate-x-1/2 text-xs text-[#111111]">TRIG</div></div>
+                                <div class="w-full bg-gray-300 h-[60%] transition-all duration-300 hover:bg-gray-400 hover:h-[70%]"></div>
+                                <div class="w-full bg-gray-300 h-[40%] transition-all duration-300 hover:bg-gray-400 hover:h-[50%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: SYNTHESIS / CTA -->
+    <section class="py-32 bg-[#111111] text-white text-center px-6 relative overflow-hidden z-10">
+        <!-- Dark grid background -->
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+        
+        <div class="max-w-3xl mx-auto flex flex-col items-center relative z-10">
+            
+            <div class="font-mono text-xs text-gray-500 mb-8 border border-gray-800 px-3 py-1 rounded-sm bg-black/50 hover:bg-black transition-colors">
+                PARALLEL INSTANCES_ACTIVE: <span class="text-white" id="live-instances">4,092</span>
+            </div>
+
+            <!-- Abstract blended data representation -->
+            <div class="w-full max-w-sm mb-12">
+                <div class="flex justify-between text-xs font-mono text-gray-500 mb-2 px-1">
+                    <span class="flicker-once">PROCESSING</span>
+                    <span>100% VECTOR_MAP</span>
+                </div>
+                <div class="flex space-x-0.5 h-1.5 w-full mx-auto rounded-full overflow-hidden bg-gray-900 group">
+                    <div id="blend-1" class="bg-[#2563EB] w-[25%] h-full transition-all duration-1000"></div>
+                    <div id="blend-2" class="bg-[#7C3AED] w-[35%] h-full transition-all duration-1000"></div>
+                    <div id="blend-3" class="bg-[#EA580C] w-[15%] h-full transition-all duration-1000"></div>
+                    <div id="blend-4" class="bg-[#059669] w-[25%] h-full transition-all duration-1000"></div>
+                </div>
+            </div>
+
+            <h2 class="text-4xl font-medium tracking-tight mb-6 leading-tight">
+                We don't give feedback.<br>We reconstruct how you perform.
+            </h2>
+            <p class="text-gray-400 mb-10 text-lg font-light max-w-lg">
+                Enter the simulation. Face the reactive environment. Run the diagnostic.
+            </p>
+            
+            <button class="bg-white text-[#111111] px-8 py-4 rounded-md font-medium hover:bg-gray-200 transition-colors shadow-lg shadow-white/10 group relative overflow-hidden">
+                <span class="relative z-10 flex items-center space-x-2 text-sm uppercase tracking-wide">
+                    <span>Start XR Simulation</span>
+                    <iconify-icon icon="solar:arrow-right-linear" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                </span>
+            </button>
+            <div class="flex items-center space-x-4 mt-8 font-mono text-xs text-gray-600">
+                <span class="pulse-calm">SECURE INFRASTRUCTURE</span>
+                <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                <span>V 2.4.0_BUILD.88</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Footer -->
+    <footer class="border-t border-gray-200 bg-[#FAFAFA] py-8 relative z-10 text-center flex flex-col items-center">
+        <div class="flex items-center space-x-2 font-mono text-xs text-gray-400 mb-2">
+            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full pulse-calm"></span>
+            <span>SYSTEM NOMINAL</span>
+        </div>
+        <p class="font-mono text-xs text-gray-400">© 2024 S P E A K X R. PARALLEL INTELLIGENCE ARCHITECTURE.</p>
+    </footer>
+
+    <!-- Continuous Event Loop / System Activation Layer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categories = ['clarity', 'composure', 'persuasion', 'structure'];
+            const sysPhrases = [
+                "Re-evaluating primary metrics due to high variance anomaly.",
+                "Syntax fragmentation confirmed in secondary buffer.",
+                "Compensatory acoustic shift identified; mapping trajectory.",
+                "Baseline physical lock maintained despite pressure surge.",
+                "Ocular dispersion widening to peripheral vectors.",
+                "Volume amplification detected in persuasion framework."
+            ];
+
+            // Animate number ticker
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            function systemLoop() {
+                // Randomly generate event payload
+                const target = categories[Math.floor(Math.random() * categories.length)];
+                const latency = (Math.random() * 15 + 5).toFixed(1);
+                const confidence = (Math.random() * 10 + 89).toFixed(1);
+                const targetScore = Math.floor(Math.random() * 45 + 50);
+                const selectedPhrase = sysPhrases[Math.floor(Math.random() * sysPhrases.length)];
+
+                // +0ms: Telemetry Injection (Interrogation Log)
+                setTimeout(() => {
+                    const logContainer = document.getElementById('telemetry-log-container');
+                    if (logContainer) {
+                        const newLog = document.createElement('div');
+                        newLog.className = 'relative z-10 flex space-x-4 mb-4 transition-all duration-700 opacity-0 -translate-y-4 shadow-sm';
+                        newLog.innerHTML = `
+                            <div class="w-8 h-8 rounded-md bg-blue-600 flex items-center justify-center flex-shrink-0 text-white font-mono text-xs shadow-sm flicker-once">SYS</div>
+                            <div class="flex-1">
+                                <div class="font-mono text-xs text-gray-400 mb-2 flex justify-between">
+                                    <span>T+ ${new Date().toISOString().substring(11, 23)}</span>
+                                    <span class="text-emerald-500 border border-emerald-200 bg-emerald-50 px-1 rounded uppercase">UPDATE_${target.toUpperCase()}</span>
+                                </div>
+                                <p class="text-sm font-medium tracking-tight text-[#111111] mb-2 bg-white p-3 border border-gray-100 rounded">
+                                    "${selectedPhrase}"
+                                </p>
+                            </div>
+                        `;
+                        logContainer.prepend(newLog);
+
+                        // Trigger reflow for animation
+                        requestAnimationFrame(() => {
+                            newLog.classList.remove('opacity-0', '-translate-y-4');
+                            newLog.classList.add('opacity-100', 'translate-y-0');
+                        });
+
+                        // Apply non-destructive visual decay downwards
+                        const children = Array.from(logContainer.children);
+                        children.forEach((child, index) => {
+                            if (index === 1) {
+                                child.classList.add('opacity-70', 'blur-[0.5px]', 'scale-[0.99]');
+                                const sysIcon = child.querySelector('.bg-blue-600');
+                                if (sysIcon) { sysIcon.classList.replace('bg-blue-600', 'bg-[#111111]'); }
+                            } else if (index === 2) {
+                                child.classList.replace('opacity-70', 'opacity-30');
+                                child.classList.replace('blur-[0.5px]', 'blur-[1.5px]');
+                                child.classList.replace('scale-[0.99]', 'scale-[0.98]');
+                            } else if (index > 2) {
+                                child.style.opacity = '0';
+                                setTimeout(() => child.remove(), 700);
+                            }
+                        });
+                    }
+
+                    // Top header latency update
+                    const latencyEl = document.getElementById('sys-latency');
+                    if (latencyEl) {
+                        latencyEl.classList.add('text-emerald-400');
+                        latencyEl.innerHTML = `<iconify-icon icon="solar:wifi-router-linear"></iconify-icon><span>LATENCY: ${latency}ms</span>`;
+                        setTimeout(() => latencyEl.classList.remove('text-emerald-400'), 400);
+                    }
+                }, 0);
+
+                // +200ms: Connectors and Data Paths Activate
+                setTimeout(() => {
+                    document.querySelectorAll('.svg-connector').forEach(path => {
+                        path.classList.add('stroke-blue-400', 'drop-shadow-sm');
+                        path.style.strokeWidth = '0.8';
+                        setTimeout(() => {
+                            path.classList.remove('stroke-blue-400', 'drop-shadow-sm');
+                            path.style.strokeWidth = '0.3';
+                        }, 500);
+                    });
+
+                    document.querySelectorAll('.sys-node').forEach(node => {
+                        node.classList.add('border-blue-200', 'bg-blue-50/20');
+                        setTimeout(() => node.classList.remove('border-blue-200', 'bg-blue-50/20'), 500);
+                    });
+                }, 200);
+
+                // +400ms: Action Engine (Parallel Column UI updates)
+                setTimeout(() => {
+                    const overlay = document.getElementById(`overlay-${target}`);
+                    if (overlay) {
+                        overlay.classList.remove('opacity-0');
+                        overlay.classList.add('opacity-100', 'flicker-once');
+                        setTimeout(() => {
+                            overlay.classList.remove('opacity-100', 'flicker-once');
+                            overlay.classList.add('opacity-0');
+                        }, 600);
+                    }
+
+                    const scoreEl = document.getElementById(`score-${target}`);
+                    if (scoreEl) {
+                        const current = parseInt(scoreEl.innerText);
+                        animateValue(scoreEl, current, targetScore, 500);
+                    }
+
+                    const confEl = document.getElementById(`conf-${target}`);
+                    if (confEl) {
+                        confEl.classList.add('text-[#111111]');
+                        confEl.innerText = `CONF. ${confidence}%`;
+                        setTimeout(() => confEl.classList.remove('text-[#111111]'), 400);
+                    }
+
+                    // Update abstract blend bars visually
+                    const blend = document.getElementById(`blend-${categories.indexOf(target) + 1}`);
+                    if (blend) {
+                        blend.style.width = Math.random() * 40 + 10 + '%';
+                    }
+                }, 400);
+
+                // +700ms: Tickers and Global Micro-States Sync
+                setTimeout(() => {
+                    const loadEl = document.getElementById('sys-load');
+                    const vectorsEl = document.getElementById('sys-vectors');
+                    const liveInstances = document.getElementById('live-instances');
+                    
+                    if (loadEl) loadEl.innerText = `SYS_LOAD: ${Math.floor(Math.random() * 35 + 15)}%`;
+                    if (vectorsEl) vectorsEl.innerText = `VECTORS: ${(Math.floor(Math.random() * 5000 + 3000)).toLocaleString()}`;
+                    if (liveInstances) liveInstances.innerText = (Math.floor(Math.random() * 1000 + 4000)).toLocaleString();
+
+                    const tickerText = document.getElementById('ticker-text');
+                    if (tickerText) {
+                        tickerText.classList.add('text-[#111111]', 'flicker-once');
+                        tickerText.innerText = `BUFFER: RE-SYNC [${target.toUpperCase()}]`;
+                        setTimeout(() => {
+                            tickerText.classList.remove('text-[#111111]', 'flicker-once');
+                            tickerText.innerText = 'BUFFER: SYNCHRONIZED';
+                        }, 1200);
+                    }
+
+                    const timeEl = document.getElementById('live-time');
+                    if (timeEl) {
+                        const d = new Date();
+                        timeEl.innerText = `T+ [00:${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}.${Math.floor(Math.random()*9)}]`;
+                    }
+                }, 700);
+
+                // Re-arm loop (dynamic unpredictability)
+                setTimeout(systemLoop, Math.random() * 2500 + 2000);
+            }
+
+            // Initiate Continuous System Loop
+            setTimeout(systemLoop, 1500);
+        });
+    </script>
+
+</body></html>
