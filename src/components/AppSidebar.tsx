@@ -28,8 +28,6 @@ function LogoMark() {
     <div className="relative flex h-9 w-9 items-center justify-center">
       {/* Ambient glow ring */}
       <div className="absolute inset-0 rounded-xl bg-primary/20 animate-[logo-breathe_4s_ease-in-out_infinite]" />
-      {/* Core mark */}
-      <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80">
         <Sparkles className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
       </div>
     </div>
