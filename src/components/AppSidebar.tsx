@@ -29,7 +29,6 @@ function LogoMark() {
       {/* Ambient glow ring */}
       <div className="absolute inset-0 rounded-xl bg-primary/20 animate-[logo-breathe_4s_ease-in-out_infinite]" />
         <Sparkles className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
-      </div>
     </div>
   );
 }
