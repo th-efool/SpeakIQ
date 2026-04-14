@@ -153,6 +153,16 @@
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 .card-interactive:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px -2px hsl(245 50% 56% / 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px hsl(245 50% 56% / 0.12);
+}
+
+/* Scanline animation */
+@keyframes scanline-move {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.scanline {
+  animation: scanline-move 8s linear infinite;
 }

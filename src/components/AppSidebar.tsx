@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const mainItems = [
-  { title: "Overview", url: "/", icon: LayoutDashboard },
+  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
   { title: "Sessions", url: "/sessions", icon: List },
 ];
 

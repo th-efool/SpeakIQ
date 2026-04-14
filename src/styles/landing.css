@@ -1,0 +1,70 @@
+/* Landing Page Styles - copied from instructions/landing-page/src/index.css */
+
+/* Analytical Background Grids */
+.bg-sys-grid {
+    background-image: 
+        linear-gradient(to right, rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+.bg-micro-grid {
+    background-image: 
+        linear-gradient(to right, rgba(17, 17, 17, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 17, 0.06) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+/* Continuous Motion System */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
+}
+@keyframes sweep {
+    0% { transform: translateX(-100%); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: translateX(100%); opacity: 0; }
+}
+@keyframes drift {
+    0% { transform: translateX(-5%); }
+    50% { transform: translateX(5%); }
+    100% { transform: translateX(-5%); }
+}
+@keyframes pulse-calm {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+@keyframes data-stream {
+    0% { opacity: 0.3; height: 10%; }
+    50% { opacity: 0.8; height: 90%; }
+    100% { opacity: 0.3; height: 30%; }
+}
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    20% { opacity: 0.4; }
+    40% { opacity: 0.9; }
+    60% { opacity: 0.2; }
+    80% { opacity: 0.8; }
+}
+
+.animate-scan { animation: scanline 12s linear infinite; }
+.animate-sweep { animation: sweep 6s ease-in-out infinite; }
+.animate-drift { animation: drift 20s ease-in-out infinite; }
+.pulse-calm { animation: pulse-calm 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.pulse-calm-fast { animation: pulse-calm 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.flicker-once { animation: flicker 0.4s ease-out forwards; }
+
+.data-bar-1 { animation: data-stream 2s ease-in-out infinite; }
+.data-bar-2 { animation: data-stream 3.5s ease-in-out infinite 0.5s; }
+.data-bar-3 { animation: data-stream 2.8s ease-in-out infinite 1s; }
+
+/* Extended Bleed Dividers */
+.bleed-divider::before {
+    content: '';
+    position: absolute;
+    left: -50vw;
+    right: -50vw;
+    top: 0;
+    height: 1px;
+    background: rgba(17,17,17,0.1);
+    pointer-events: none;
+}
