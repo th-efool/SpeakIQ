@@ -6,6 +6,7 @@ import { ParallelExpertPanel } from "@/components/session/ParallelExpertPanel";
 import { ConflictLayer } from "@/components/session/ConflictLayer";
 import { SynthesisPanel } from "@/components/session/SynthesisPanel";
 import { InterrogationBlock } from "@/components/session/InterrogationBlock";
+import { AgentDetailModal, AgentDetail } from "@/components/session/AgentDetailModal";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,8 @@ export default function SessionDetail() {
   const navigate = useNavigate();
   const session = sessions.find((s) => s.id === id);
   const [activeTime, setActiveTime] = useState<string | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<AgentDetail | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSelectTime = useCallback((time: string) => {
     setActiveTime(time);
@@ -103,7 +106,7 @@ export default function SessionDetail() {
         </div>
 
         {/* Parallel Expert Columns */}
-        <ParallelExpertPanel session={session} onSelectTime={handleSelectTime} />
+        <ParallelExpertPanel session={session} onSelectTime={handleSelectTime} onSelectAgent={(agent) => { setSelectedAgent(agent); setModalOpen(true); }} />
 
         {/* Conflict Layer */}
         <ConflictLayer session={session} />
@@ -113,6 +116,8 @@ export default function SessionDetail() {
 
         {/* Cross-Examination */}
         <InterrogationBlock />
+
+        <AgentDetailModal open={modalOpen} onOpenChange={setModalOpen} agent={selectedAgent} />
       </div>
     </DashboardLayout>
   );

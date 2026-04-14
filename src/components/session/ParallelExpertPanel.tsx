@@ -39,11 +39,12 @@ function useCountUp(target: number, duration = 800, delay = 0) {
   return value;
 }
 
-function ExpertColumn({ expert, session, isActive, onSelectEvidence, delay }: {
+function ExpertColumn({ expert, session, isActive, onSelectEvidence, onClickAgent, delay }: {
   expert: ExpertConfig;
   session: Session;
   isActive: boolean;
   onSelectEvidence: (time: string) => void;
+  onClickAgent?: () => void;
   delay: number;
 }) {
   const score = useCountUp(session[expert.scoreKey] as number, 800, delay);
@@ -52,8 +53,9 @@ function ExpertColumn({ expert, session, isActive, onSelectEvidence, delay }: {
 
   return (
     <div
+      onClick={onClickAgent}
       className={cn(
-        "rounded-lg border bg-background/50 p-4 transition-all duration-300 group relative overflow-hidden",
+        "rounded-lg border bg-background/50 p-4 transition-all duration-300 group relative overflow-hidden cursor-pointer hover:bg-accent/30",
         expert.borderClass,
         isActive && "ring-1 ring-primary/20"
       )}
@@ -173,7 +175,30 @@ const expertConfigs: ExpertConfig[] = [
   },
 ];
 
-export function ParallelExpertPanel({ session, onSelectTime }: { session: Session; onSelectTime: (time: string) => void }) {
+const agentDetails: Record<string, { good: string[]; bad: string[] }> = {
+  clarity: {
+    good: ["Precise vocabulary and data references", "Immediate citation of specific numbers", "Clean sentence structure throughout"],
+    bad: ["Could pause more after key data points", "Some jargon may alienate non-technical listeners"],
+  },
+  composure: {
+    good: ["Calm and steady under direct questioning", "No filler words during pressure moments", "Confident tone maintained throughout"],
+    bad: ["Eye contact dropped briefly during tough Q&A", "Slight rush when transitioning after challenges"],
+  },
+  persuasion: {
+    good: ["Strong use of supporting data", "Enterprise growth framing is compelling", "Effective emotional appeals"],
+    bad: ["Lacks competitive context for claims", "Could strengthen call-to-action moments"],
+  },
+  structure: {
+    good: ["Logical flow with clear transitions", "Smooth bridge between topic areas", "Good use of signposting language"],
+    bad: ["Missing summary before roadmap section", "Q&A transition felt abrupt"],
+  },
+};
+
+export function ParallelExpertPanel({ session, onSelectTime, onSelectAgent }: {
+  session: Session;
+  onSelectTime: (time: string) => void;
+  onSelectAgent?: (agent: { name: string; color: string; score: number; good: string[]; bad: string[]; suggestion: string }) => void;
+}) {
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-3">
@@ -188,6 +213,14 @@ export function ParallelExpertPanel({ session, onSelectTime }: { session: Sessio
             session={session}
             isActive={false}
             onSelectEvidence={onSelectTime}
+            onClickAgent={() => onSelectAgent?.({
+              name: expert.label,
+              color: expert.color,
+              score: session[expert.scoreKey] as number,
+              good: agentDetails[expert.key]?.good ?? [],
+              bad: agentDetails[expert.key]?.bad ?? [],
+              suggestion: expert.suggestion,
+            })}
             delay={200 + i * 100}
           />
         ))}
